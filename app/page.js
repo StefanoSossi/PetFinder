@@ -9,9 +9,14 @@ export default function Home() {
 					<h1 className="text-4xl font-extrabold"> Lista de Mascotas</h1>
 				</div>
 				<div className="mt-12 w-full flex-between items-center flex-wrap gap-5">
-					<SearchBar></SearchBar>
+					<SearchBar />
 					<div className="flex justify-start flex-wrap items-center gap-2">
+						<CustomFilter tittle="Tipo"></CustomFilter>
 						<CustomFilter tittle="Raza"></CustomFilter>
+						<CustomFilter tittle="Tamaño"></CustomFilter>
+						<CustomFilter tittle="Genero"></CustomFilter>
+						<CustomFilter tittle="Edad"></CustomFilter>
+						<CustomFilter tittle="Estatus"></CustomFilter>
 					</div>
 				</div>
 			</div>
