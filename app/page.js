@@ -1,7 +1,12 @@
 import { CustomFilter, SearchBar } from "@/components";
-import Image from "next/image";
+import { fetchAnimals } from "@/utils";
 
-export default function Home() {
+export default async function Home() {
+	const allAnimals = await fetchAnimals();
+	console.log(allAnimals);
+
+	const isDataEmpty =
+		!Array.isArray(allAnimals) || allAnimals.length < 1 || !allAnimals;
 	return (
 		<main className="overflow-hidden">
 			<div className="mt-12 px-16 py-4 max-w-[1440px] mx-auto" id="discover">
@@ -19,6 +24,18 @@ export default function Home() {
 						<CustomFilter tittle="Estatus"></CustomFilter>
 					</div>
 				</div>
+				{!isDataEmpty ? (
+					<section>
+						<div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14"></div>
+					</section>
+				) : (
+					<div className="mt-16 flex justify-center items-center flex-col gap-2">
+						<h2 className="text-black text-xl font-bold">
+							Oops, no se encontraron animalitos
+						</h2>
+						<p>{allAnimals?.message}</p>
+					</div>
+				)}
 			</div>
 		</main>
 	);
