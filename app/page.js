@@ -1,10 +1,8 @@
-import { CustomFilter, SearchBar } from "@/components";
+import { CustomFilter, SearchBar, AnimalCard } from "@/components";
 import { fetchAnimals } from "@/utils";
 
 export default async function Home() {
 	const allAnimals = await fetchAnimals();
-	console.log(allAnimals);
-
 	const isDataEmpty =
 		!Array.isArray(allAnimals) || allAnimals.length < 1 || !allAnimals;
 	return (
@@ -26,7 +24,11 @@ export default async function Home() {
 				</div>
 				{!isDataEmpty ? (
 					<section>
-						<div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14"></div>
+						<div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
+							{allAnimals?.map((animal) => (
+								<AnimalCard key={animal.id} animal={animal} />
+							))}
+						</div>
 					</section>
 				) : (
 					<div className="mt-16 flex justify-center items-center flex-col gap-2">
