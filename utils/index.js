@@ -1,7 +1,12 @@
 const axios = require("axios");
 export async function fetchAccesToken() {
-	const clientId = "LhHyk5rFGb1M3rWaI2TAHd96GvmYFW67NRLjAOzQGwnQPyfH2r";
-	const clientSecret = "WEgJPQhMtoZm3j5hvPEdEf3DWJ6hhGcpKSK6urPF";
+	//stefanosossi
+	//const clientId = "LhHyk5rFGb1M3rWaI2TAHd96GvmYFW67NRLjAOzQGwnQPyfH2r";
+	//const clientSecret = "WEgJPQhMtoZm3j5hvPEdEf3DWJ6hhGcpKSK6urPF";
+
+	//tenos
+	const clientId = "u9Q5tyxUPeWWUgIZig11WtZYFHb6VcLsGu9RzPg07DItiAZmSn";
+	const clientSecret = "tNhn3OJAOn3uF86yNA9XCMEcdG6flyqEQuLrlsTc";
 
 	const response = await axios.post(
 		"https://api.petfinder.com/v2/oauth2/token",
@@ -13,7 +18,7 @@ export async function fetchAccesToken() {
 		}
 	);
 	const accessToken = response.data.access_token;
-	console.log(response.data);
+	console.log("accessToken", accessToken);
 	return accessToken;
 }
 
@@ -38,9 +43,10 @@ export async function fetchAnimalBreeds() {
 		}
 	);
 
-	const dogBreeds = responseDogs.data.breeds;
-	const catBreeds = responseCats.data.breeds;
-	return [...dogBreeds, ...catBreeds];
+	const dogBreeds = responseDogs.data.breeds.map((dog) => dog.name);
+	const catBreeds = responseCats.data.breeds.map((cat) => cat.name);
+
+	return new Set([...dogBreeds, ...catBreeds]);
 }
 
 export async function fetchAnimals(filters) {
@@ -94,3 +100,26 @@ export async function fetchAnimals(filters) {
 
 	return [...allAnimals];
 }
+
+export const getUniqueElements = async (property) => {
+	const allAnimals = await fetchAnimals({
+		breed: "",
+		type: "",
+		size: "",
+		gender: "",
+		age: "",
+		status: "",
+	});
+	const allUniqueElements = allAnimals.map((animal) => animal[property]);
+	return new Set([...allUniqueElements]);
+};
+
+export const updateSearchParams = (title, value) => {
+	const searchParams = new URLSearchParams(window.location.search);
+
+	searchParams.set(`${title}`, value);
+
+	const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+
+	return newPathname;
+};

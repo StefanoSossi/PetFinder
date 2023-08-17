@@ -59,7 +59,7 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 											</div>
 										))
 									) : (
-										<div> Sin fotos </div>
+										<div> No photos found </div>
 									)}
 								</div>
 							</div>
@@ -71,41 +71,51 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 
 								<div className="mt-3 flex flex-wrap gap-4">
 									<div className="flex justify-between gap-5 w-full text-right">
-										<h4 className="text-gray-500 capitalize">Tipo</h4>
-										<p className="text-gray-800 font-semibold">{animal.type}</p>
+										<h4 className="text-gray-500 capitalize">Type</h4>
+										<p className="text-gray-800 font-semibold">
+											{animal.type ? animal.description : "No infomation"}
+										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
-										<h4 className="text-gray-500 capitalize">Raza</h4>
+										<h4 className="text-gray-500 capitalize">Breed</h4>
 										<p className="text-gray-800 font-semibold">
-											{animal.breeds.primary}
+											{animal.breeds.primary
+												? animal.description
+												: "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
 										<h4 className="text-gray-500 capitalize">Color</h4>
 										<p className="text-gray-800 font-semibold">
-											{animal.colors.primary}
+											{animal.colors.primary
+												? animal.description
+												: "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
-										<h4 className="text-gray-500 capitalize">Edad</h4>
-										<p className="text-gray-800 font-semibold">{animal.age}</p>
-									</div>
-									<div className="flex justify-between gap-5 w-full text-right">
-										<h4 className="text-gray-500 capitalize">Genero</h4>
+										<h4 className="text-gray-500 capitalize">Age</h4>
 										<p className="text-gray-800 font-semibold">
-											{animal.gender}
+											{animal.age ? animal.description : "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
-										<h4 className="text-gray-500 capitalize">Tamaño</h4>
-										<p className="text-gray-800 font-semibold">{animal.size}</p>
+										<h4 className="text-gray-500 capitalize">Gender</h4>
+										<p className="text-gray-800 font-semibold">
+											{animal.gender ? animal.description : "No infomation"}
+										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
-										<h4 className="text-gray-500 capitalize">Descripcion</h4>
+										<h4 className="text-gray-500 capitalize">Size</h4>
+										<p className="text-gray-800 font-semibold">
+											{animal.size ? animal.description : "No infomation"}
+										</p>
+									</div>
+									<div className="flex justify-between gap-5 w-full text-right">
+										<h4 className="text-gray-500 capitalize">Description</h4>
 										<p className="text-gray-800 font-semibold">
 											{animal.description
 												? animal.description
-												: "Sin descripccion"}
+												: "No infomation"}
 										</p>
 									</div>
 								</div>

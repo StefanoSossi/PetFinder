@@ -3,16 +3,15 @@
 import { Combobox } from "@headlessui/react";
 import { useState } from "react";
 import Image from "next/image";
-
-import { breeds } from "@/constants";
+import { allBreeds } from "@/constants";
 
 const SearchBreed = ({ breed, setBreed }) => {
 	const [query, setQuery] = useState("");
 
 	const filteredBreeds =
 		query === ""
-			? breeds
-			: breeds.filter((item) =>
+			? allBreeds
+			: allBreeds.filter((item) =>
 					item
 						.toLowerCase()
 						.replace(/\s+/g, "")
@@ -34,7 +33,7 @@ const SearchBreed = ({ breed, setBreed }) => {
 					</Combobox.Button>
 					<Combobox.Input
 						className="w-full h-[48px] pl-12 p-4 rounded-2xl max-sm:rounded-full bg-blue-50 outline-none cursor-pointer text-sm"
-						placeholder="Raza"
+						placeholder="Breed"
 						displayValue={(breed) => breed}
 						onChange={(event) => setQuery(event.target.value)}
 					></Combobox.Input>
@@ -44,7 +43,7 @@ const SearchBreed = ({ breed, setBreed }) => {
 								key={item}
 								className={({ active }) =>
 									`relative cursor-default select-none py-2 pl-10 pr-4 ${
-										active ? "bg-blue-300 text-white" : "text-gray-900"
+										active ? "bg-blue-100 text-white" : "text-gray-900"
 									}`
 								}
 								value={item}

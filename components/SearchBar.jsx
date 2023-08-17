@@ -4,6 +4,7 @@ import { SearchBreed } from "@/components";
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { updateSearchParams } from "@/utils";
 
 const SearchButton = ({ otherClasses }) => (
 	<button
@@ -27,22 +28,13 @@ const SearchBar = () => {
 	const handleSearch = (event) => {
 		event?.preventDefault();
 
-		if (breed !== "") updateSearchParams(breed.toLocaleLowerCase());
-	};
-
-	const updateSearchParams = (breed) => {
-		const searchParams = new URLSearchParams(window.location.search);
-
-		if (breed) {
-			searchParams.set("breed", breed);
-		} else {
-			searchParams.delete("breed");
+		if (breed !== "") {
+			const newPathName = updateSearchParams(
+				"breed",
+				breed.toLocaleLowerCase()
+			);
+			router.push(newPathName);
 		}
-
-		const newPathname = `${
-			window.location.pathname
-		}?${searchParams.toString()}`;
-		router.push(newPathname);
 	};
 
 	return (
@@ -52,6 +44,7 @@ const SearchBar = () => {
 		>
 			<div className="flex-1 max-sm:w-full flex justify-start items-center relative">
 				<SearchBreed breed={breed} setBreed={setBreed} />
+				<SearchButton otherClasses="sm:hidden" />
 			</div>
 			<SearchButton otherClasses="max-sm:hidden" />
 		</form>

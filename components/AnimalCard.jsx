@@ -22,7 +22,7 @@ const AnimalCard = ({ animal }) => {
 			<div className="relative w-full h-40 my-3 object-contain">
 				<Image
 					src={firstPhoto ? firstPhoto.full : "/pet-logo.svg"}
-					alt="animal foto"
+					alt="animal photo"
 					fill
 					priority
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -37,7 +37,7 @@ const AnimalCard = ({ animal }) => {
 							src={animal.type === "Dog" ? "/dog.svg" : "/cat.svg"}
 							width={20}
 							height={20}
-							alt="tipo animal"
+							alt="animal type"
 						/>
 						<p className="text-[14px] leading-[17px] font-bold capitalize">
 							{animal.status}
