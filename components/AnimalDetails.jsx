@@ -4,8 +4,8 @@ import Image from "next/image";
 import { Dialog } from "@headlessui/react";
 
 const AnimalDetails = ({ isOpen, closeModal, animal }) => {
-	const photos = animal.photos;
-	const firstPhoto = Object.values(photos)[0];
+	const photos = Object.values(animal.photos) || {};
+	const isDataEmpty = !Array.isArray(photos) || photos.length < 1 || !photos;
 
 	return (
 		<>
@@ -17,7 +17,7 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 			>
 				<div className="fixed inset-0 overflow-y-auto">
 					<div className="flex min-h-full items-center justify-center p-4 text-center">
-						<Dialog.Panel className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto transform rounded-2xl bg-white p-6 text-left shadow-xl transition-all flex flex-col gap-5">
+						<Dialog.Panel className="relative w-full max-w-lg h-[95vh] overflow-y-auto transform rounded-2xl bg-white p-6 text-left shadow-xl transition-all flex flex-col gap-5">
 							<button
 								type="button"
 								className="absolute top-2 right-2 z-10 w-fit p-2 bg-blue-100 rounded-full"
@@ -33,14 +33,34 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 							</button>
 
 							<div className="flex-1 flex flex-col gap-3">
-								<div className="relative w-full h-40 bg-cover bg-center rounded-lg">
+								<div className="relative w-full h-full bg-blue-100 bg-center rounded-lg">
 									<Image
-										src={firstPhoto ? firstPhoto.full : "/pet-logo.svg"}
+										src={photos[0] ? photos[0].full : "/pet-logo.svg"}
 										alt="animal foto"
 										fill
 										priority
 										className="object-contain"
 									/>
+								</div>
+								<div className="flex gap-3">
+									{!isDataEmpty ? (
+										photos.map((value, index) => (
+											<div
+												className="flex-1 relative w-full h-20 bg-blue-50 rounded-lg"
+												key={index}
+											>
+												<Image
+													src={value.full}
+													alt="animal foto"
+													fill
+													priority
+													className="object-contain"
+												/>
+											</div>
+										))
+									) : (
+										<div> Sin fotos </div>
+									)}
 								</div>
 							</div>
 
@@ -99,19 +119,3 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 };
 
 export default AnimalDetails;
-
-/*
-foto, tipo de animal, raza,
-color, edad, genero, tamanho, nombre, descripcion y estado adopciona
-
-{Object.entries(animal).map(([key, value]) => (
-										<div
-											className="flex justify-between gap-5 w-full text-right"
-											key={key}
-										>
-											<h4 className="text-grey capitalize">
-												{key.split("_").join(" ")}
-											</h4>
-											<p className="text-black-100 font-semibold">{value}</p>
-										</div>
-									))} */

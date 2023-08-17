@@ -33,7 +33,7 @@ const SearchBreed = ({ breed, setBreed }) => {
 						></Image>
 					</Combobox.Button>
 					<Combobox.Input
-						className="w-full h-[48px] pl-12 p-4 rounded-l-full max-sm:rounded-full bg-light-white outline-none cursor-pointer text-sm"
+						className="w-full h-[48px] pl-12 p-4 rounded-2xl max-sm:rounded-full bg-blue-50 outline-none cursor-pointer text-sm"
 						placeholder="Raza"
 						displayValue={(breed) => breed}
 						onChange={(event) => setQuery(event.target.value)}

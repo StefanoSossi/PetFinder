@@ -1,10 +1,18 @@
 import { CustomFilter, SearchBar, AnimalCard } from "@/components";
 import { fetchAnimals } from "@/utils";
 
-export default async function Home() {
-	const allAnimals = await fetchAnimals();
+export default async function Home({ searchParams }) {
+	const allAnimals = await fetchAnimals({
+		breed: searchParams.breed || "",
+		type: searchParams.type || "",
+		size: searchParams.size || "",
+		gender: searchParams.gender || "",
+		age: searchParams.age || "",
+		status: searchParams.status || "",
+	});
 	const isDataEmpty =
 		!Array.isArray(allAnimals) || allAnimals.length < 1 || !allAnimals;
+
 	return (
 		<main className="overflow-hidden">
 			<div className="mt-12 px-16 py-4 max-w-[1440px] mx-auto" id="discover">
