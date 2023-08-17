@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { AnimalDetails } from "@/components";
 const AnimalCard = ({ animal }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -58,6 +59,11 @@ const AnimalCard = ({ animal }) => {
 					</div>
 				</div>
 			</div>
+			<AnimalDetails
+				isOpen={isOpen}
+				closeModal={() => setIsOpen(false)}
+				animal={animal}
+			/>
 		</div>
 	);
 };
