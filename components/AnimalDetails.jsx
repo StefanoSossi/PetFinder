@@ -38,6 +38,7 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 										src={photos[0] ? photos[0].full : "/pet-logo.svg"}
 										alt="animal foto"
 										fill
+										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 										priority
 										className="object-contain"
 									/>
@@ -53,6 +54,7 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 													src={value.full}
 													alt="animal foto"
 													fill
+													sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 													priority
 													className="object-contain"
 												/>
