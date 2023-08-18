@@ -4,18 +4,25 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Listbox } from "@headlessui/react";
-import { updateSearchParams } from "@/utils";
+import { updateSearchParams, deleteSearchParams } from "@/utils";
 
 const CustomFilter = ({ tittle, options }) => {
 	const allOptions = Array.from(options);
 	const router = useRouter();
-	const [selected, setSelected] = useState(allOptions[0]);
+	const [selected, setSelected] = useState("");
 
 	const handleUpdateParams = (event) => {
-		const newPathName = updateSearchParams(
-			tittle.toLowerCase(),
-			event.toLowerCase()
-		);
+		let newPathName = "";
+		console.log("tittle", tittle);
+		console.log("event", event);
+		if (tittle.toLowerCase() !== event.toLowerCase()) {
+			newPathName = updateSearchParams(
+				tittle.toLowerCase(),
+				event.toLowerCase()
+			);
+		} else {
+			newPathName = deleteSearchParams(tittle.toLowerCase());
+		}
 		router.push(newPathName);
 	};
 
@@ -30,7 +37,9 @@ const CustomFilter = ({ tittle, options }) => {
 			>
 				<div className="relative w-fit -z10">
 					<Listbox.Button className="relative w-full min-w-[127px] flex justify-between items-center cursor-default rounded-lg bg-white py-2 px-3 text-left shadow-md sm:text-sm border">
-						<span className="block truncate">{tittle}</span>
+						<span className="block truncate">
+							{selected ? selected : tittle}
+						</span>
 						<Image
 							src="/up-down.svg"
 							width={20}
@@ -45,7 +54,7 @@ const CustomFilter = ({ tittle, options }) => {
 								key={index}
 								className={({ active }) =>
 									`relative cursor-default select-none py-2 px-4 ${
-										active ? "bg-blue-100 text-white" : "text-gray-900"
+										active ? "bg-blue-100 text-black" : "text-gray-500"
 									}`
 								}
 								value={option}

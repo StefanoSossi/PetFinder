@@ -18,7 +18,7 @@ export async function fetchAccesToken() {
 		}
 	);
 	const accessToken = response.data.access_token;
-	console.log("accessToken", accessToken);
+	//console.log("accessToken", accessToken);
 	return accessToken;
 }
 
@@ -51,8 +51,8 @@ export async function fetchAnimalBreeds() {
 
 export async function fetchAnimals(filters) {
 	const accessToken = await fetchAccesToken();
-	const { breed, type, size, gender, age, status } = { ...filters };
-	const urlParams = `&size=${size}&gender=${gender}&age=${age}&status=${status}`;
+	const { breed, type, size, gender, age, status, page } = { ...filters };
+	const urlParams = `&page=${page}&size=${size}&gender=${gender}&age=${age}&status=${status}`;
 	let allAnimals;
 
 	if (type === "") {
@@ -114,12 +114,18 @@ export const getUniqueElements = async (property) => {
 	return new Set([...allUniqueElements]);
 };
 
-export const updateSearchParams = (title, value) => {
+export const updateSearchParams = (param, value) => {
 	const searchParams = new URLSearchParams(window.location.search);
-
-	searchParams.set(`${title}`, value);
-
+	searchParams.set(`${param}`, value);
 	const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+	return newPathname;
+};
 
+export const deleteSearchParams = (param) => {
+	const newSearchParams = new URLSearchParams(window.location.search);
+	newSearchParams.delete(`${param}`);
+	const newPathname = `${
+		window.location.pathname
+	}?${newSearchParams.toString()}`;
 	return newPathname;
 };

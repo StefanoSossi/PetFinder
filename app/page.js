@@ -1,5 +1,6 @@
-import { CustomFilter, SearchBar, AnimalCard } from "@/components";
+import { CustomFilter, SearchBar, AnimalCard, Pagination } from "@/components";
 import { fetchAnimals } from "@/utils"; // fetchAnimalBreeds, getUniqueElements
+
 import {
 	allTypes,
 	allBreeds,
@@ -7,9 +8,11 @@ import {
 	allGenders,
 	allAges,
 	allStatus,
+	// allAnimals,
 } from "@/constants";
 
 export default async function Home({ searchParams }) {
+	// dogs total = 160913, cats total = 147054,  total animals = 307967 - (15398 * 20)
 	const allAnimals = await fetchAnimals({
 		breed: searchParams.breed || "",
 		type: searchParams.type || "",
@@ -17,7 +20,13 @@ export default async function Home({ searchParams }) {
 		gender: searchParams.gender || "",
 		age: searchParams.age || "",
 		status: searchParams.status || "",
+		page: searchParams.page || "1",
 	});
+	const itemsPerPage = 30;
+	const currentPage = searchParams.page || 1;
+	const fisrtIndex = (currentPage - 1) * itemsPerPage;
+	const lastIndex = currentPage * itemsPerPage;
+	const totalPages = Math.ceil(allAnimals.length / itemsPerPage);
 
 	// Get all unique elements from API
 	/* 
@@ -51,7 +60,7 @@ export default async function Home({ searchParams }) {
 				{!isDataEmpty ? (
 					<section>
 						<div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
-							{allAnimals?.map((animal) => (
+							{allAnimals.slice(fisrtIndex, lastIndex)?.map((animal) => (
 								<AnimalCard key={animal.id} animal={animal} />
 							))}
 						</div>
@@ -64,6 +73,7 @@ export default async function Home({ searchParams }) {
 						<p>{allAnimals?.message}</p>
 					</div>
 				)}
+				<Pagination totalPages={totalPages}></Pagination>
 			</div>
 		</main>
 	);
