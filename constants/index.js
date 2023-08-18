@@ -1,8 +1,9 @@
 import { fetchAnimalBreeds, fetchAnimals } from "@/utils";
 
-export const allTypes = ["Dog", "Cat"];
+export const allTypes = ["Type", "Dog", "Cat"];
 
 export const allBreeds = [
+	"Breed",
 	"Affenpinscher",
 	"Afghan Hound",
 	"Airedale Terrier",
@@ -2265,7 +2266,7 @@ export const allAnimals = [
 	},
 ];
 
-export const allSizes = ["Large", "Medium", "Small", "Extra Large"];
-export const allGenders = ["Male", "Female"];
-export const allAges = ["Young", "Adult", "Senior", "Baby"];
-export const allStatus = ["adoptable", "adopted", "found"];
+export const allSizes = ["Size", "Large", "Medium", "Small", "Extra Large"];
+export const allGenders = ["Gender", "Male", "Female"];
+export const allAges = ["Age", "Young", "Adult", "Senior", "Baby"];
+export const allStatus = ["Status", "adoptable", "adopted", "found"];

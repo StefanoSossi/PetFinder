@@ -4,7 +4,7 @@ import { SearchBreed } from "@/components";
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { updateSearchParams } from "@/utils";
+import { updateSearchParams, deleteSearchParams } from "@/utils";
 
 const SearchButton = ({ otherClasses }) => (
 	<button
@@ -27,14 +27,14 @@ const SearchBar = () => {
 
 	const handleSearch = (event) => {
 		event?.preventDefault();
+		let newPathName = "";
 
-		if (breed !== "") {
-			const newPathName = updateSearchParams(
-				"breed",
-				breed.toLocaleLowerCase()
-			);
-			router.push(newPathName);
+		if (breed !== "" && breed.toLowerCase() !== "breed") {
+			newPathName = updateSearchParams("breed", breed.toLocaleLowerCase());
+		} else {
+			newPathName = deleteSearchParams("breed");
 		}
+		router.push(newPathName);
 	};
 
 	return (

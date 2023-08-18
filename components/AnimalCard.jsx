@@ -11,7 +11,7 @@ const AnimalCard = ({ animal }) => {
 
 	return (
 		<div
-			className="flex flex-col p-6 justify-center items-start text-black bg-blue-100 hover:bg-white hover:shadow-md rounded-3xl"
+			className="flex flex-col p-6 justify-center items-start text-black hover:bg-blue-100 bg-zinc-100 hover:shadow-md rounded-3xl shadow-sm"
 			onClick={() => setIsOpen(true)}
 		>
 			<div className="w-full flex justify-between items-start gap-2">
@@ -35,25 +35,27 @@ const AnimalCard = ({ animal }) => {
 					<div className="flex flex-col justify-center items-center gap-2">
 						<Image
 							src={animal.type === "Dog" ? "/dog.svg" : "/cat.svg"}
-							width={20}
-							height={20}
+							width={30}
+							height={30}
 							alt="animal type"
 						/>
-						<p className="text-[14px] leading-[17px] font-bold capitalize">
+						<p className="text-[18px] leading-[20px] font-bold capitalize">
 							{animal.status}
 						</p>
 					</div>
-					<div className="flex flex-col justify-center items-center gap-2">
-						<p className="text-[24px] leading-[17px]">{animal.age}</p>
+					<div className="flex flex-col justify-center items-center gap-2 -ml-3">
+						<p className="text-[18px] leading-[20px] font-bold capitalize">
+							{animal.age}
+						</p>
 					</div>
 					<div className="flex flex-col justify-center items-center gap-2">
 						<Image
 							src={animal.gender === "Male" ? "/male.svg" : "/female.svg"}
-							width={20}
-							height={20}
+							width={25}
+							height={25}
 							alt="gender"
 						/>
-						<p className="text-[14px] leading-[17px] font-bold capitalize">
+						<p className="text-[18px] leading-[20px] font-bold capitalize">
 							{animal.gender}
 						</p>
 					</div>

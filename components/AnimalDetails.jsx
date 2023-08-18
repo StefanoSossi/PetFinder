@@ -20,7 +20,7 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 						<Dialog.Panel className="relative w-full max-w-lg h-[95vh] overflow-y-auto transform rounded-2xl bg-white p-6 text-left shadow-xl transition-all flex flex-col gap-5">
 							<button
 								type="button"
-								className="absolute top-2 right-2 z-10 w-fit p-2 bg-blue-100 rounded-full"
+								className="absolute top-2 right-2 z-10 w-fit p-2 bg-blue-300 rounded-full"
 								onClick={closeModal}
 							>
 								<Image
@@ -46,7 +46,7 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 									{!isDataEmpty ? (
 										photos.map((value, index) => (
 											<div
-												className="flex-1 relative w-full h-20 bg-blue-50 rounded-lg"
+												className="flex-1 relative w-full h-20 bg-zinc-100 rounded-lg"
 												key={index}
 											>
 												<Image
@@ -73,14 +73,14 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 									<div className="flex justify-between gap-5 w-full text-right">
 										<h4 className="text-gray-500 capitalize">Type</h4>
 										<p className="text-gray-800 font-semibold">
-											{animal.type ? animal.description : "No infomation"}
+											{animal.type ? animal.type : "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
 										<h4 className="text-gray-500 capitalize">Breed</h4>
 										<p className="text-gray-800 font-semibold">
 											{animal.breeds.primary
-												? animal.description
+												? animal.breeds.primary
 												: "No infomation"}
 										</p>
 									</div>
@@ -88,26 +88,26 @@ const AnimalDetails = ({ isOpen, closeModal, animal }) => {
 										<h4 className="text-gray-500 capitalize">Color</h4>
 										<p className="text-gray-800 font-semibold">
 											{animal.colors.primary
-												? animal.description
+												? animal.colors.primary
 												: "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
 										<h4 className="text-gray-500 capitalize">Age</h4>
 										<p className="text-gray-800 font-semibold">
-											{animal.age ? animal.description : "No infomation"}
+											{animal.age ? animal.age : "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
 										<h4 className="text-gray-500 capitalize">Gender</h4>
 										<p className="text-gray-800 font-semibold">
-											{animal.gender ? animal.description : "No infomation"}
+											{animal.gender ? animal.gender : "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
 										<h4 className="text-gray-500 capitalize">Size</h4>
 										<p className="text-gray-800 font-semibold">
-											{animal.size ? animal.description : "No infomation"}
+											{animal.size ? animal.size : "No infomation"}
 										</p>
 									</div>
 									<div className="flex justify-between gap-5 w-full text-right">
