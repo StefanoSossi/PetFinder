@@ -2,29 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { Listbox } from "@headlessui/react";
-import { updateSearchParams, deleteSearchParams } from "@/utils";
 
-const CustomFilter = ({ tittle, options }) => {
+const CustomFilter = ({ tittle, options, setFilter }) => {
 	const allOptions = Array.from(options);
-	const router = useRouter();
 	const [selected, setSelected] = useState("");
-
-	const handleUpdateParams = (event) => {
-		let newPathName = "";
-		console.log("tittle", tittle);
-		console.log("event", event);
-		if (tittle.toLowerCase() !== event.toLowerCase()) {
-			newPathName = updateSearchParams(
-				tittle.toLowerCase(),
-				event.toLowerCase()
-			);
-		} else {
-			newPathName = deleteSearchParams(tittle.toLowerCase());
-		}
-		router.push(newPathName);
-	};
 
 	return (
 		<div className="w-fit">
@@ -32,7 +14,7 @@ const CustomFilter = ({ tittle, options }) => {
 				value={selected}
 				onChange={(e) => {
 					setSelected(e);
-					handleUpdateParams(e);
+					setFilter(e === tittle ? "" : e.toLocaleLowerCase());
 				}}
 			>
 				<div className="relative w-fit -z10">

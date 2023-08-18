@@ -3,8 +3,6 @@
 import { SearchBreed } from "@/components";
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { updateSearchParams, deleteSearchParams } from "@/utils";
 
 const SearchButton = ({ otherClasses }) => (
 	<button
@@ -21,20 +19,16 @@ const SearchButton = ({ otherClasses }) => (
 	</button>
 );
 
-const SearchBar = () => {
-	const [breed, setBreed] = useState("");
-	const router = useRouter();
+const SearchBar = ({ setBreed }) => {
+	const [breedSearch, setBreedSearch] = useState("");
 
 	const handleSearch = (event) => {
-		event?.preventDefault();
-		let newPathName = "";
+		event.preventDefault();
 
-		if (breed !== "" && breed.toLowerCase() !== "breed") {
-			newPathName = updateSearchParams("breed", breed.toLocaleLowerCase());
-		} else {
-			newPathName = deleteSearchParams("breed");
+		if (breedSearch === "" && breedSearch.toLowerCase() === "breed") {
+			return alert("Please provide some input");
 		}
-		router.push(newPathName);
+		setBreed(breedSearch.toLocaleLowerCase());
 	};
 
 	return (
@@ -43,7 +37,7 @@ const SearchBar = () => {
 			onSubmit={handleSearch}
 		>
 			<div className="flex-1 max-sm:w-full flex justify-start items-center relative">
-				<SearchBreed breed={breed} setBreed={setBreed} />
+				<SearchBreed selected={breedSearch} setSelected={setBreedSearch} />
 				<SearchButton otherClasses="sm:hidden" />
 			</div>
 			<SearchButton otherClasses="max-sm:hidden" />

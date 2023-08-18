@@ -1,6 +1,9 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { CustomFilter, SearchBar, AnimalCard, Pagination } from "@/components";
 import { fetchAnimals } from "@/utils"; // fetchAnimalBreeds, getUniqueElements
-
+import Image from "next/image";
 import {
 	allTypes,
 	allBreeds,
@@ -11,19 +14,45 @@ import {
 	// allAnimals,
 } from "@/constants";
 
-export default async function Home({ searchParams }) {
+export default function Home({ searchParams }) {
 	// dogs total = 160913, cats total = 147054,  total animals = 307967 - (15398 * 20)
-	const allAnimals = await fetchAnimals({
-		breed: searchParams.breed || "",
-		type: searchParams.type || "",
-		size: searchParams.size || "",
-		gender: searchParams.gender || "",
-		age: searchParams.age || "",
-		status: searchParams.status || "",
-		page: searchParams.page || "1",
-	});
+	const [allAnimals, setAllAnimals] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [breed, setBreed] = useState("");
+	const [type, setType] = useState("");
+	const [size, setSize] = useState("");
+	const [gender, setGender] = useState("");
+	const [age, setAge] = useState("");
+	const [status, setStatus] = useState("");
+	const [page, setPage] = useState("1");
+
+	useEffect(() => {
+		const getAnimals = async () => {
+			setLoading(true);
+			try {
+				const result = await fetchAnimals({
+					breed: breed || "",
+					type: type || "",
+					size: size || "",
+					gender: gender || "",
+					age: age || "",
+					status: status || "",
+					page: page || "1",
+				});
+
+				setAllAnimals(result);
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		getAnimals();
+	}, [breed, type, size, gender, age, status, page]);
+
 	const itemsPerPage = 30;
-	const currentPage = searchParams.page || 1;
+	const currentPage = page || 1;
 	const fisrtIndex = (currentPage - 1) * itemsPerPage;
 	const lastIndex = currentPage * itemsPerPage;
 	const totalPages = Math.ceil(allAnimals.length / itemsPerPage);
@@ -37,9 +66,6 @@ export default async function Home({ searchParams }) {
 		const allStatus = await getUniqueElements("status");
 	*/
 
-	const isDataEmpty =
-		!Array.isArray(allAnimals) || allAnimals.length < 1 || !allAnimals;
-
 	return (
 		<main className="overflow-hidden">
 			<div className="mt-12 px-16 py-4 max-w-[1440px] mx-auto" id="discover">
@@ -47,23 +73,58 @@ export default async function Home({ searchParams }) {
 					<h1 className="text-4xl font-extrabold"> List of Pets </h1>
 				</div>
 				<div className="mt-12 w-full flex-between items-center flex-wrap gap-5">
-					<SearchBar />
+					<SearchBar setBreed={setBreed} />
 					<div className="flex justify-start flex-wrap items-center gap-2 mt-4">
-						<CustomFilter tittle="Type" options={allTypes}></CustomFilter>
-						<CustomFilter tittle="Breed" options={allBreeds}></CustomFilter>
-						<CustomFilter tittle="Size" options={allSizes}></CustomFilter>
-						<CustomFilter tittle="Gender" options={allGenders}></CustomFilter>
-						<CustomFilter tittle="Age" options={allAges}></CustomFilter>
-						<CustomFilter tittle="Status" options={allStatus}></CustomFilter>
+						<CustomFilter
+							tittle="Type"
+							options={allTypes}
+							setFilter={setType}
+						></CustomFilter>
+						<CustomFilter
+							tittle="Breed"
+							options={allBreeds}
+							setFilter={setBreed}
+						></CustomFilter>
+						<CustomFilter
+							tittle="Size"
+							options={allSizes}
+							setFilter={setSize}
+						></CustomFilter>
+						<CustomFilter
+							tittle="Gender"
+							options={allGenders}
+							setFilter={setGender}
+						></CustomFilter>
+						<CustomFilter
+							tittle="Age"
+							options={allAges}
+							setFilter={setAge}
+						></CustomFilter>
+						<CustomFilter
+							tittle="Status"
+							options={allStatus}
+							setFilter={setStatus}
+						></CustomFilter>
 					</div>
 				</div>
-				{!isDataEmpty ? (
+				{allAnimals.length > 0 ? (
 					<section>
 						<div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
 							{allAnimals.slice(fisrtIndex, lastIndex)?.map((animal) => (
 								<AnimalCard key={animal.id} animal={animal} />
 							))}
 						</div>
+						{loading && (
+							<div className="mt-16 w-full flex-center">
+								<Image
+									src="./loader.svg"
+									alt="loader"
+									width={50}
+									height={50}
+									className="object-contain"
+								/>
+							</div>
+						)}
 					</section>
 				) : (
 					<div className="mt-16 flex justify-center items-center flex-col gap-2">
@@ -73,7 +134,7 @@ export default async function Home({ searchParams }) {
 						<p>{allAnimals?.message}</p>
 					</div>
 				)}
-				<Pagination totalPages={totalPages}></Pagination>
+				<Pagination totalPages={totalPages} setPage={setPage}></Pagination>
 			</div>
 		</main>
 	);

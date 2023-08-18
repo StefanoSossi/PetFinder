@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { allBreeds } from "@/constants";
 
-const SearchBreed = ({ breed, setBreed }) => {
+const SearchBreed = ({ selected, setSelected }) => {
 	const [query, setQuery] = useState("");
 
 	const filteredBreeds =
@@ -20,7 +20,12 @@ const SearchBreed = ({ breed, setBreed }) => {
 
 	return (
 		<div className="flex-1 max-sm:w-full flex justify-start items-center">
-			<Combobox value={breed} onChange={setBreed}>
+			<Combobox
+				value={selected}
+				onChange={(e) => {
+					setSelected(e === "Breed" ? "" : e);
+				}}
+			>
 				<div className="relative w-full">
 					<Combobox.Button className="absolute top-[14px]">
 						<Image
@@ -34,7 +39,7 @@ const SearchBreed = ({ breed, setBreed }) => {
 					<Combobox.Input
 						className="w-full h-[48px] pl-12 p-4 rounded-2xl max-sm:rounded-full bg-blue-100 outline-none cursor-pointer text-sm"
 						placeholder="Breed"
-						displayValue={(breed) => breed}
+						displayValue={(item) => item}
 						onChange={(event) => setQuery(event.target.value)}
 					></Combobox.Input>
 					<Combobox.Options>
