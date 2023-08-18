@@ -1,12 +1,7 @@
 const axios = require("axios");
 export async function fetchAccesToken() {
-	//stefanosossi
-	//const clientId = "LhHyk5rFGb1M3rWaI2TAHd96GvmYFW67NRLjAOzQGwnQPyfH2r";
-	//const clientSecret = "WEgJPQhMtoZm3j5hvPEdEf3DWJ6hhGcpKSK6urPF";
-
-	//tenos
-	const clientId = "u9Q5tyxUPeWWUgIZig11WtZYFHb6VcLsGu9RzPg07DItiAZmSn";
-	const clientSecret = "tNhn3OJAOn3uF86yNA9XCMEcdG6flyqEQuLrlsTc";
+	const clientId = "LhHyk5rFGb1M3rWaI2TAHd96GvmYFW67NRLjAOzQGwnQPyfH2r";
+	const clientSecret = "WEgJPQhMtoZm3j5hvPEdEf3DWJ6hhGcpKSK6urPF";
 
 	const response = await axios.post(
 		"https://api.petfinder.com/v2/oauth2/token",
@@ -18,7 +13,7 @@ export async function fetchAccesToken() {
 		}
 	);
 	const accessToken = response.data.access_token;
-	//console.log("accessToken", accessToken);
+	console.log("accessToken", accessToken);
 	return accessToken;
 }
 

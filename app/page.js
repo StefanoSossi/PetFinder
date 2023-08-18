@@ -56,6 +56,7 @@ export default function Home({ searchParams }) {
 	const fisrtIndex = (currentPage - 1) * itemsPerPage;
 	const lastIndex = currentPage * itemsPerPage;
 	const totalPages = Math.ceil(allAnimals.length / itemsPerPage);
+	console.log("animals count: ", allAnimals.length);
 
 	// Get all unique elements from API
 	/* 

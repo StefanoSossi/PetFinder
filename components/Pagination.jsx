@@ -14,7 +14,7 @@ const Pagination = ({ totalPages, setPage }) => {
 					setPage(currentPage - 1);
 				}}
 				className="relative w-28 min-w-[40px] flex justify-center items-center cursor-default rounded-lg bg-white py-2 px-3 shadow-md sm:text-sm border"
-				disabled={currentPage === 0 ? true : false}
+				disabled={currentPage === 1 ? true : false}
 			>
 				<Image
 					src={"/left-arrow.svg"}
